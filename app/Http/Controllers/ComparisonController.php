@@ -72,13 +72,13 @@ public function test(Request $request){
    public function get_rakuten_items()
       {
         $client = new RakutenRws_Client();
+        $rakutenAppId = env('RAKUTEN_APPLICATION_ID');
 
-        config('env.RAKUTEN_APPLICATION_ID');
 
-        $client->setApplicationId(RAKUTEN_APPLICATION_ID);
+        $client->setApplicationId($rakutenAppId);
 
         $response = $client->execute('IchibaItemSearch',array(
-            'keyword' => '任意のキーワードを入れてください'
+            'keyword' => 'きかんしゃトーマス'
         ));
 
         if(!$response->isOk()){
@@ -95,7 +95,7 @@ public function test(Request $request){
                     $items[$key]['img'] = preg_replace('/^http:/','https:',$imgSrc);
                 }
             }
-            return view('comparison.top',['items' => $items]);//indexファイルへitems変数を送る。;
+            return view('comparisons.top',['items' => $items]);//indexファイルへitems変数を送る。;
         }
 
     }

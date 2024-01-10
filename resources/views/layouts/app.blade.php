@@ -67,27 +67,8 @@
 </style>
 </head>
 <body>
-    <h1><a href="/hotel">ホテルページ</a></h1>
-
     @section('menubar')
-    <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
-            <a href="/hotel">内容一覧</a>
-            <a href="/hotel/rooms">部屋一覧</a>
-            <a href="/hotel/details">予約明細</a>
-            <a href="/login">ログイン</a>
-            <div>
-                <a href="{{ route('logout') }}"
-                   onclick="event.preventDefault();
-                                 document.getElementById('logout-form').submit();">
-                    {{ __('ログアウト') }}
-                </a>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                    @csrf
-                </form>
-            </div>
-      </nav>
 
-    <h2 class="menutitle">※メニュー</h2>
     <ul>
         <li>@show</li>
     </ul>
