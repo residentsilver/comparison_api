@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ComparisonController;
+use App\Http\Controllers\RakutenController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,8 +20,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('test',[ComparisonController::class,'index']);
+Route::get('/get-rakuten-items', [RakutenController::class, 'get_rakuten_items']);
 
-Route::get('/get-rakuten-items', [ComparisonController::class, 'get_rakuten_items']);
-
-Route::get('/search', [ComparisonController::class, 'searchItems'])->name('search');
+Route::get('/search', [RakutenController::class, 'searchItems'])->name('search');
