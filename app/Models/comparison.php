@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class comparison extends Model
 {
     use HasFactory;
+    protected $guarded = array('id');
+    protected $primaryKey = 'id';
 }

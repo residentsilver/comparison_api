@@ -23,3 +23,4 @@ Route::get('test',[ComparisonController::class,'index']);
 
 Route::get('/get-rakuten-items', [ComparisonController::class, 'get_rakuten_items']);
 
+Route::get('/search', [ComparisonController::class, 'searchItems'])->name('search');
