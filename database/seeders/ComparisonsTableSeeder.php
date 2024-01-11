@@ -18,6 +18,7 @@ class ComparisonsTableSeeder extends Seeder
             'id' =>1,
             'name' =>'aiueo',
             'price' =>2000,
+            'shop' =>'amazon',
         ];
         DB::table('comparisons')->insert($param);
 
@@ -25,6 +26,7 @@ class ComparisonsTableSeeder extends Seeder
             'id' =>2,
             'name' =>'kakikukeko',
             'price' =>1000,
+            'shop' =>'amazon',
         ];
         DB::table('comparisons')->insert($param);
     }

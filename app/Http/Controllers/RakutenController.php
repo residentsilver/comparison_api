@@ -40,7 +40,7 @@ class RakutenController extends Controller
       }
 
   }
-  
+
     public function searchItems(Request $request)
     {
         $client = new RakutenRws_Client();
@@ -71,4 +71,11 @@ class RakutenController extends Controller
         }
     }
     
+    //追加処理
+    public function save(Request $request)
+    {
+        $comparison = new comparison();
+        $comparison->fill($request->all())->save();
+        return redirect('search'); 
+        }
 }

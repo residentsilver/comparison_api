@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ComparisonController;
+use App\Http\Controllers\RakutenController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,4 +19,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('test',[ComparisonController::class,'test']);
+Route::post('product_save',[RakutenController::class,'save']);
+
+Route::get('/search', [RakutenController::class, 'searchItems'])->name('search');
