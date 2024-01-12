@@ -22,3 +22,7 @@ Route::get('/', function () {
 Route::post('product_save',[RakutenController::class,'save']);
 
 Route::get('/search', [RakutenController::class, 'searchItems'])->name('search');
+
+Route::get('/index', [RakutenController::class, 'index']);
+
+Route::delete('/index/{guest}', [RakutenController::class, 'delete']);//削除

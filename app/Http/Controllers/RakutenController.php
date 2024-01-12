@@ -78,4 +78,20 @@ class RakutenController extends Controller
         $comparison->fill($request->all())->save();
         return redirect('search'); 
         }
+
+        //一覧表示
+        public function index()
+        {
+            $comparisons = comparison::all(); //guestsテーブル(複数形)に登録されているデータ項目を、モデルGuest.php(単数形)を通じて、全て取得。
+            // dd($comparisons); //変数guestの中身確認
+            return view('comparisons.index', ['comparisons' => $comparisons]); //①guest.blade.phpを呼び出す、⓶bladeの変数guestsに、$guestsの中身(Guest::all();)を渡す
+        }
+    
+
+            //削除処理
+    public function delete(Comparison $comparison)
+    {
+        $comparison->delete();
+        return redirect('/index');
+    }
 }
