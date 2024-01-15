@@ -20,4 +20,3 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/get-rakuten-items', [RakutenController::class, 'get_rakuten_items']);
