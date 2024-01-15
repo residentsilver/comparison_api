@@ -74,9 +74,18 @@ class RakutenController extends Controller
     //追加処理
     public function save(Request $request)
     {
-        $comparison = new comparison();
-        $comparison->fill($request->all())->save();
-        return redirect('search'); 
+        // $comparison = new comparison();
+        $requestData = $request->all();
+        $existingComparison = Comparison::where('name', $requestData['name'])->first();
+
+        if ($existingComparison) {
+            $existingComparison->update($requestData);
+        } else {
+            Comparison::create($requestData);
+        }
+
+        // $comparison->fill($request->all())->save();
+        return redirect()->back(); 
         }
 
         //一覧表示
