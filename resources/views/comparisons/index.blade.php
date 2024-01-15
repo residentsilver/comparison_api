@@ -8,6 +8,13 @@
 
 
 <div class="table-wrap">
+
+<form action="/index" method="GET">	<table>
+<label for="search">商品名で検索：</label>	
+<input type="text" name="search" id="search" value="{{ request('search') }}">	
+<button type="submit">検索</button>	
+</form>
+
     <table>
         <th>ID</th>
         <th>商品名</th>
@@ -36,5 +43,5 @@
         @endforeach
 
 
-        
-    </table>
+        </table>
+</div>

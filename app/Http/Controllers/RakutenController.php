@@ -68,9 +68,8 @@ class RakutenController extends Controller
             $items = collect($items)->sortBy($sortKey, SORT_NATURAL, $sortOrder === 'desc')->values()->all();
         
             return view('comparisons.top', compact('items'));
-
     //ここまで
-            return view('comparisons.top', ['items' => $items]);
+            // return view('comparisons.top', ['items' => $items]);
         }
     }
     
