@@ -13,10 +13,7 @@ class RakutenController extends Controller
     {
       $client = new RakutenRws_Client();
       $rakutenAppId = env('RAKUTEN_APPLICATION_ID');
-
-
       $client->setApplicationId($rakutenAppId);
-
       $response = $client->execute('IchibaItemSearch',array(
           'keyword' => 'きかんしゃトーマス'
       ));
@@ -30,13 +27,12 @@ class RakutenController extends Controller
               $items[$key]['price'] = $rakutenItem['itemPrice'];
               $items[$key]['url'] = $rakutenItem['itemUrl'];
               $items[$key]['shop'] = $rakutenItem['shop'];
-
               if($rakutenItem['imageFlag']){
                   $imgSrc = $rakutenItem['mediumImageUrls'][0]['imageUrl'];
                   $items[$key]['img'] = preg_replace('/^http:/','https:',$imgSrc);
               }
           }
-          view('comparisons.top',['items' => $items]);view('comparisons.top',['items' => $items]);
+          view('comparisons.top',['items' => $items]);
       }
 
   }
@@ -50,8 +46,6 @@ class RakutenController extends Controller
         $keyword = $request->input('keyword', 'きかんしゃトーマス'); // デフォルトは 'きかんしゃトーマス'
     
         $response = $client->execute('IchibaItemSearch', ['keyword' => $keyword]);
-    
-        // 以下は元のコードと同じです
         if (!$response->isOk()) {
             return 'Error:' . $response->getMessage();
         } else {
@@ -67,11 +61,20 @@ class RakutenController extends Controller
                     $items[$key]['img'] = preg_replace('/^http:/', 'https:', $imgSrc);
                 }
             }
+    //ソート機能のため、以下のみ追加
+            $sortKey = $request->input('sort_key', 'price'); // リクエストからソートのキーを取得
+            $sortOrder = $request->input('sort_order', 'asc'); // リクエストからソートの順序を取得
+        
+            $items = collect($items)->sortBy($sortKey, SORT_NATURAL, $sortOrder === 'desc')->values()->all();
+        
+            return view('comparisons.top', compact('items'));
+
+    //ここまで
             return view('comparisons.top', ['items' => $items]);
         }
     }
     
-    //追加処理
+    //追加処理　nameカラムが一致する場合更新
     public function save(Request $request)
     {
         // $comparison = new comparison();
@@ -83,12 +86,10 @@ class RakutenController extends Controller
         } else {
             Comparison::create($requestData);
         }
-
-        // $comparison->fill($request->all())->save();
         return redirect()->back(); 
         }
 
-        //一覧表示
+//一覧表示
         public function index()
         {
             $comparisons = comparison::all(); //guestsテーブル(複数形)に登録されているデータ項目を、モデルGuest.php(単数形)を通じて、全て取得。
@@ -97,10 +98,13 @@ class RakutenController extends Controller
         }
     
 
-            //削除処理
+//削除処理
     public function delete(Comparison $comparison)
     {
         $comparison->delete();
         return redirect('/index');
     }
+
+
+
 }

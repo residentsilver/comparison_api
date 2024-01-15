@@ -36,3 +36,6 @@ Route::get('/index', [RakutenController::class, 'index']);
 
 //amazonの情報を取得したい
 Route::get('/amazon', [AmazonController::class, '']);
+
+//ソート機能
+Route::post('/product_save', 'RakutenController@save')->name('product.save');

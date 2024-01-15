@@ -4,12 +4,34 @@
 
     {{-- {{@dd($items)}} --}}
 
-    <div class="container">
+<div class="container">
         <form action="{{ route('search') }}" method="GET">
-            <input type="text" name="keyword" placeholder="検索キーワードを入力">
+            <input type="text" name="keyword" placeholder="検索キーワードを入力" value="{{ request('keyword')}}">
             <button type="submit">検索</button>
         </form>
     </div>
+
+    @if(request('keyword'))
+    <p>検索キーワード: {{ request('keyword') }}</p>
+@endif
+
+<div class="container">
+    <form action="{{ route('search') }}" method="GET">
+        <input type="hidden" name="keyword" placeholder="検索キーワードを入力" value="{{ request('keyword') }}">
+        <select name="sort_key">
+            <option value="price" {{ request('sort_key') === 'price' ? 'selected' : '' }}>価格</option>
+            <option value="name" {{ request('sort_key') === 'name' ? 'selected' : '' }}>タイトル名</option>
+            <!-- 他のソート対象の項目を追加 -->
+        </select>
+        <select name="sort_order">
+            <option value="asc" {{ request('sort_order') === 'asc' ? 'selected' : '' }}>昇順</option>
+            <option value="desc" {{ request('sort_order') === 'desc' ? 'selected' : '' }}>降順</option>
+        </select>
+        <input type="submit" value="ソート">
+    </form>
+</div>
+
+
 
         <div class="contents_all">
         @if(isset($items))
