@@ -11,7 +11,7 @@
         </form>
     </div>
 
-    @if(request('keyword'))
+@if(request('keyword'))
     <p>検索キーワード: {{ request('keyword') }}</p>
 @endif
 
@@ -19,8 +19,8 @@
     <form action="{{ route('search') }}" method="GET">
         <input type="hidden" name="keyword" placeholder="検索キーワードを入力" value="{{ request('keyword') }}">
         <select name="sort_key">
-            <option value="price" {{ request('sort_key') === 'price' ? 'selected' : '' }}>価格</option>
             <option value="name" {{ request('sort_key') === 'name' ? 'selected' : '' }}>タイトル名</option>
+            <option value="price" {{ request('sort_key') === 'price' ? 'selected' : '' }}>価格</option>
             <!-- 他のソート対象の項目を追加 -->
         </select>
         <select name="sort_order">
