@@ -9,7 +9,6 @@ use RakutenRws_Client;
 
 class RakutenController extends Controller
 {
-
     public function get_rakuten_items()
     {
       $client = new RakutenRws_Client();
@@ -30,13 +29,14 @@ class RakutenController extends Controller
               $items[$key]['title'] = $rakutenItem['itemName'];
               $items[$key]['price'] = $rakutenItem['itemPrice'];
               $items[$key]['url'] = $rakutenItem['itemUrl'];
+              $items[$key]['shop'] = $rakutenItem['shop'];
 
               if($rakutenItem['imageFlag']){
                   $imgSrc = $rakutenItem['mediumImageUrls'][0]['imageUrl'];
                   $items[$key]['img'] = preg_replace('/^http:/','https:',$imgSrc);
               }
           }
-          return view('comparisons.top',['items' => $items]);
+          view('comparisons.top',['items' => $items]);view('comparisons.top',['items' => $items]);
       }
 
   }
