@@ -10,7 +10,8 @@
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
-        "rakuten-ws/rws-php-sdk": "^1.1"
+        "rakuten-ws/rws-php-sdk": "^1.1",
+        "thewirecutter/paapi5-php-sdk": "^1.2"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
