@@ -9,10 +9,10 @@
 
 <div class="table-wrap">
 
-<form action="/index" method="GET">	<table>
+<form action="/index-search" method="GET">	<table>
 <label for="search">商品名で検索：</label>	
 <input type="text" name="search" id="search" value="{{ request('search') }}">	
-<button type="submit">検索</button>	
+<input type="submit" value="検索">
 </form>
 
     <table>

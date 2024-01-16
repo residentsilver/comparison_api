@@ -22,7 +22,7 @@ Route::get('/', function () {
 
 
 //削除
-Route::delete('/index/{guest}', [RakutenController::class, 'delete']);
+Route::delete('/index/{comparison}', [RakutenController::class, 'delete']);
 
 //楽天の情報を取得
 Route::get('/get-rakuten-items', [RakutenController::class, 'get_rakuten_items']);
@@ -34,8 +34,13 @@ Route::post('product_save',[RakutenController::class,'save']);
 //楽天の格納情報を表示
 Route::get('/index', [RakutenController::class, 'index']);
 
+//楽天の格納情報を部分一致検索
+Route::get('/index-search', [RakutenController::class, 'index_search']);
+
 //amazonの情報を取得したい
 Route::get('/amazon', [AmazonController::class, '']);
 
 //ソート機能
-Route::post('/product_save', 'RakutenController@save')->name('product.save');
+Route::post('/product_sort', 'RakutenController@save')->name('product.save');
+
+

@@ -13,7 +13,8 @@ class comparison extends Model
 
     public function scopeNameLike($query, $search)
     {
-        return $query->where('guests_name', 'like', '%' . $search . '%');
+        return $query->where('name', 'like', '%' . $search . '%');
     }
+
     
 }
