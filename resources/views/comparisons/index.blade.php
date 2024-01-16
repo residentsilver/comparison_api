@@ -30,7 +30,7 @@
                 <td>{{ $comparison->price }}円</td>
                 <td><img src="{{ $comparison->img }}"></td>
                 <td>{{ $comparison->shop }}</td>
-                <td>{{ $comparison->created_at }}</td>
+                <td>{{\Carbon\Carbon::parse($comparison->created_at)->format('Y-m-d')}}</td>
                 <td>
                     <form action="{{ url('index/' . $comparison->id) }}" method="POST">
                         @csrf
