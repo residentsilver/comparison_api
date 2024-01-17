@@ -21,7 +21,7 @@ Route::get('/', function () {
 });
 
 
-//削除
+//楽天の情報を削除
 Route::delete('/index/{comparison}', [RakutenController::class, 'delete']);
 
 //楽天の情報を取得
