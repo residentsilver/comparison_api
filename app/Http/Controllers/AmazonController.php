@@ -5,19 +5,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use App\Models\comparison;
-use GuzzleHttp\Client;
 namespace App\Http\Controllers;
 use AmazonProduct;
 use App\Http\Controllers\Controller;
-
-
-namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use Amazon\ProductAdvertisingAPI\v1\com\amazon\paapi5\v1\PartnerType;
 use Amazon\ProductAdvertisingAPI\v1\com\amazon\paapi5\v1\GetItemsRequest;
 use Amazon\ProductAdvertisingAPI\v1\com\amazon\paapi5\v1\GetItemsResource;
 
+use Amazon\ProductAdvertisingAPI\v1\com\amazon\paapi5\v1\SearchItemsRequest;
+use Amazon\ProductAdvertisingAPI\v1\com\amazon\paapi5\v1\SearchItemsResource;
+use Paapi5\DefaultAPIClient;
+use Paapi5\DefaultConfiguration;
 
 class AmazonController extends Controller
 {
@@ -28,13 +27,13 @@ class AmazonController extends Controller
         $associateTag = env('AMAZON_ASSOCIATE_TAG');
 
         // クレデンシャルの設定
-        $config = new \Paapi5\DefaultConfiguration();
+        $config = new DefaultConfiguration();
         $config->setAccessKey($accessKey);
         $config->setSecretKey($secretKey);
         $config->setPartnerTag($associateTag);
 
         // クライアントの初期化
-        $client = new \Paapi5\DefaultAPIClient($config);
+        $client = new DefaultAPIClient($config);
 
         // 商品検索リクエストの作成
         $request = new SearchItemsRequest();
