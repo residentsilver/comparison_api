@@ -6,8 +6,10 @@
 <div class="container">
         <form action="{{ route('search') }}" method="GET">
             <input type="text" name="keyword" placeholder="検索キーワードを入力" value="{{ request('keyword')}}">
+            {{-- <input type="text" name="genreId" placeholder="ジャンルIDを入力" value="{{ request('genreId') }}"> --}}
             <button type="submit">検索</button>
         </form>
+        
     </div>
 
 @if(request('keyword'))

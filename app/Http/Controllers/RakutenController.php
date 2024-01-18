@@ -9,32 +9,32 @@ use RakutenRws_Client;
 
 class RakutenController extends Controller
 {
-    public function get_rakuten_items()
-    {
-        $client = new RakutenRws_Client();
-        $rakutenAppId = env('RAKUTEN_APPLICATION_ID');
-        $client->setApplicationId($rakutenAppId);
-        $response = $client->execute('IchibaItemSearch', array(
-            'keyword' => 'きかんしゃトーマス'
-        ));
+    // public function get_rakuten_items()
+    // {
+    //     $client = new RakutenRws_Client();
+    //     $rakutenAppId = env('RAKUTEN_APPLICATION_ID');
+    //     $client->setApplicationId($rakutenAppId);
+    //     $response = $client->execute('IchibaItemSearch', array(
+    //         'keyword' => 'きかんしゃトーマス'
+    //     ));
 
-        if (!$response->isOk()) {
-            return 'Error:' . $response->getMessage();
-        } else {
-            $items = [];
-            foreach ($response as $key => $rakutenItem) {
-                $items[$key]['title'] = $rakutenItem['itemName'];
-                $items[$key]['price'] = $rakutenItem['itemPrice'];
-                $items[$key]['url'] = $rakutenItem['itemUrl'];
-                $items[$key]['shop'] = $rakutenItem['shop'];
-                if ($rakutenItem['imageFlag']) {
-                    $imgSrc = $rakutenItem['mediumImageUrls'][0]['imageUrl'];
-                    $items[$key]['img'] = preg_replace('/^http:/', 'https:', $imgSrc);
-                }
-            }
-            view('comparisons.top', ['items' => $items]);
-        }
-    }
+    //     if (!$response->isOk()) {
+    //         return 'Error:' . $response->getMessage();
+    //     } else {
+    //         $items = [];
+    //         foreach ($response as $key => $rakutenItem) {
+    //             $items[$key]['title'] = $rakutenItem['itemName'];
+    //             $items[$key]['price'] = $rakutenItem['itemPrice'];
+    //             $items[$key]['url'] = $rakutenItem['itemUrl'];
+    //             $items[$key]['shop'] = $rakutenItem['shop'];
+    //             if ($rakutenItem['imageFlag']) {
+    //                 $imgSrc = $rakutenItem['mediumImageUrls'][0]['imageUrl'];
+    //                 $items[$key]['img'] = preg_replace('/^http:/', 'https:', $imgSrc);
+    //             }
+    //         }
+    //         view('comparisons.top', ['items' => $items]);
+    //     }
+    // }
 
     public function searchItems(Request $request)
     {
@@ -43,8 +43,10 @@ class RakutenController extends Controller
         $client->setApplicationId($rakutenAppId);
 
         $keyword = $request->input('keyword', 'きかんしゃトーマス'); // デフォルトは 'きかんしゃトーマス'
-
-        $response = $client->execute('IchibaItemSearch', ['keyword' => $keyword]);
+        $genreId = $request->input('genreId', '0'); // デフォルトは '全ジャンル'
+        $response = $client->execute('IchibaItemSearch', ['keyword' => $keyword]); 
+        
+        // $response = $client->execute('IchibaItemSearch', ['keyword' => $keyword, 'genreId' => $genreId]); //ジャンル追加版
         if (!$response->isOk()) {
             return 'Error:' . $response->getMessage();
         } else {
