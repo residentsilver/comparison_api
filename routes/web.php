@@ -61,7 +61,7 @@ Route::get('/index-search', [RakutenController::class, 'index_search']);
 Route::post('/product_sort', 'RakutenController@save')->name('product.save');
 /*
 |--------------------------------------------------------------------------
-| 楽天 Routes
+| amazon Routes
 |--------------------------------------------------------------------------
 |
 */
