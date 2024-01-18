@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ComparisonController;
 use App\Http\Controllers\RakutenController;
@@ -20,7 +21,24 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__.'/auth.php';
+
+/*
+|--------------------------------------------------------------------------
+| 楽天 Routes
+|--------------------------------------------------------------------------
+|
+*/
 //楽天の情報を削除
 Route::delete('/index/{comparison}', [RakutenController::class, 'delete']);
 
@@ -37,10 +55,16 @@ Route::get('/index', [RakutenController::class, 'index']);
 //楽天の格納情報を部分一致検索
 Route::get('/index-search', [RakutenController::class, 'index_search']);
 
-//amazonの情報を取得したい
-Route::get('/amazon', [AmazonController::class, '']);
+
 
 //ソート機能
 Route::post('/product_sort', 'RakutenController@save')->name('product.save');
+/*
+|--------------------------------------------------------------------------
+| 楽天 Routes
+|--------------------------------------------------------------------------
+|
+*/
 
-
+//amazonの情報を取得したい
+Route::get('/amazon', [AmazonController::class, '']);
