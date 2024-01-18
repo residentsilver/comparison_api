@@ -1,7 +1,6 @@
-    @extends('layouts.app')
+    @extends('layouts.comparison')
 
     @section('content')
-
     {{-- {{@dd($items)}} --}}
 
 <div class="container">
@@ -61,4 +60,5 @@
         @endif
 
     </div>
+
     @endsection
