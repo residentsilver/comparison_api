@@ -23,6 +23,19 @@
         header{
             height: 80px;
         }
+
+        .price{
+            color: #b12704;
+            font-size: 21px;
+            position: relative;
+            line-height: normal;
+        }
+
+        .img{
+            display: block;
+     margin-left: auto;
+     margin-right: auto ;
+        }
       /* 
         h1 {font-size: 50pt ; 
             text-align: left; 
@@ -85,15 +98,16 @@
     
     div.contents_all{
         display: flex;
-        width: 1200px;
+        width: 1300px;
         flex-wrap:wrap ;
         justify-content: space-around;
 
     }
     
     div.content{
-        width: 350px;
-        margin: 10px;   
+        width: 250px;
+        margin: 10px;  
+        background-color:  
     }
     
     </style>

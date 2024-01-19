@@ -45,8 +45,8 @@ class RakutenController extends Controller
         $keyword = $request->input('keyword', 'きかんしゃトーマス'); // デフォルトは 'きかんしゃトーマス'
         $genreId = $request->input('genreId', '0'); // デフォルトは '全ジャンル'
         $response = $client->execute('IchibaItemSearch', ['keyword' => $keyword]); 
-        
         // $response = $client->execute('IchibaItemSearch', ['keyword' => $keyword, 'genreId' => $genreId]); //ジャンル追加版
+        
         if (!$response->isOk()) {
             return 'Error:' . $response->getMessage();
         } else {
