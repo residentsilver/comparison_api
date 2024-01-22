@@ -2,7 +2,7 @@
 
 @section('content')
 
-{{@dd($result)}}
+@dd($items)
 
 
 @endsection
