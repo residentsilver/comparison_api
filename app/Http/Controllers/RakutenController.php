@@ -1,12 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\User;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use App\Models\comparison;
 use RakutenRws_Client;
-
+use Illuminate\Pagination\Paginator;
 class RakutenController extends Controller
 {
     // public function get_rakuten_items()
@@ -41,38 +41,43 @@ class RakutenController extends Controller
         $client = new RakutenRws_Client();
         $rakutenAppId = env('RAKUTEN_APPLICATION_ID');
         $client->setApplicationId($rakutenAppId);
-
         $keyword = $request->input('keyword', 'きかんしゃトーマス'); // デフォルトは 'きかんしゃトーマス'
         $genreId = $request->input('genreId', '0'); // デフォルトは '全ジャンル'
-        $response = $client->execute('IchibaItemSearch', ['keyword' => $keyword]); 
+
+        for ($page=1; $page <50 ; $page++) { 
+        $response = $client->execute('IchibaItemSearch', ['keyword' => $keyword ,'page' =>$page]); 
         // $response = $client->execute('IchibaItemSearch', ['keyword' => $keyword, 'genreId' => $genreId]); //ジャンル追加版
         
         if (!$response->isOk()) {
             return 'Error:' . $response->getMessage();
         } else {
             $items = [];
+
+
+
             foreach ($response as $key => $rakutenItem) {
                 $items[$key]['title'] = $rakutenItem['itemName'];
                 $items[$key]['price'] = $rakutenItem['itemPrice'];
                 $items[$key]['url'] = $rakutenItem['itemUrl'];
                 $items[$key]['shop'] = $rakutenItem['shopName'];
-
                 if ($rakutenItem['imageFlag']) {
                     $imgSrc = $rakutenItem['mediumImageUrls'][0]['imageUrl'];
                     $items[$key]['img'] = preg_replace('/^http:/', 'https:', $imgSrc);
                 }
             }
+        }
             //ソート機能のため、以下のみ追加
             $sortKey = $request->input('sort_key', 'price'); // リクエストからソートのキーを取得
             $sortOrder = $request->input('sort_order', 'asc'); // リクエストからソートの順序を取得
 
             $items = collect($items)->sortBy($sortKey, SORT_NATURAL, $sortOrder === 'desc')->values()->all();
-
             return view('comparisons.top', compact('items'));
             //ここまで
             // return view('comparisons.top', ['items' => $items]);
         }
     }
+
+
 
     //追加処理　nameカラムが一致する場合更新
     public function save(Request $request)
@@ -107,6 +112,7 @@ class RakutenController extends Controller
         $param = ['input'=>$request->input, 'item'=>$item];
         return view('comparisons.index', ['comparisons' => $items], $param);
     }
+
 
 
     //削除処理
