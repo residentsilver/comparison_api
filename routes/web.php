@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ComparisonController;
 use App\Http\Controllers\RakutenController;
 use App\Http\Controllers\AmazonController;
-
+use App\Http\Controllers\AmazonCurlController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -67,4 +67,5 @@ Route::post('/product_sort', 'RakutenController@save')->name('product.save');
 */
 
 //amazonの情報を取得したい
-Route::get('/amazon', [AmazonController::class, '']);
+Route::get('/amazon', [AmazonCurlController::class, 'searchAmazonProducts']);
+Route::post('/amazon', [AmazonCurlController::class, 'searchAmazonProducts']);
