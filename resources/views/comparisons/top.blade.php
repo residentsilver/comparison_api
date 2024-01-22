@@ -1,7 +1,6 @@
     @extends('layouts.comparison')
 
     @section('content')
-    {{-- {{@dd($items)}} --}}
 
 <div class="container">
         <form action="{{ route('search') }}" method="GET">
