@@ -3,6 +3,7 @@
 @section('content')
 
 <div class="container">
+   <p>Amazonで検索をする</p>
    <div class="search">
       <form action="/amazon-search" method="post">
          @csrf

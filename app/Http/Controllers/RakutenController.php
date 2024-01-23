@@ -32,7 +32,7 @@ class RakutenController extends Controller
     //                 $items[$key]['img'] = preg_replace('/^http:/', 'https:', $imgSrc);
     //             }
     //         }
-    //         view('comparisons.top', ['items' => $items]);
+    //         view('comparisons.rakuten', ['items' => $items]);
     //     }
     // }
 
@@ -68,9 +68,9 @@ class RakutenController extends Controller
     //         $sortOrder = $request->input('sort_order', 'asc'); // リクエストからソートの順序を取得
 
     //         $items = collect($items)->sortBy($sortKey, SORT_NATURAL, $sortOrder === 'desc')->values()->all();
-    //         return view('comparisons.top', compact('items'));
+    //         return view('comparisons.rakuten', compact('items'));
     //         //ここまで
-    //         // return view('comparisons.top', ['items' => $item]);
+    //         // return view('comparisons.rakuten', ['items' => $item]);
     //     }
 
         //APIを複数取得できたパターン
@@ -127,7 +127,7 @@ class RakutenController extends Controller
     
         $items = collect($items)->sortBy($sortKey, SORT_NATURAL, $sortOrder === 'desc')->values()->all();
     
-        return view('comparisons.top', compact('items'));
+        return view('comparisons.rakuten', compact('items'));
     }
     
 
@@ -173,4 +173,11 @@ class RakutenController extends Controller
         $comparison->delete();
         return redirect('/index');
     }
+
+    //楽天のトップページを表示する
+    public function RakutenTop()
+    {
+        return view('comparisons.rakuten-top');
+}
+
 }

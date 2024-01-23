@@ -39,12 +39,16 @@ require __DIR__.'/auth.php';
 |--------------------------------------------------------------------------
 |
 */
+
+//楽天のトップページを表示する
+Route::get('/rakuten', [RakutenController::class, 'RakutenTop']);
+
 //楽天の情報を削除
 Route::delete('/index/{comparison}', [RakutenController::class, 'delete']);
 
 //楽天の情報を取得
 Route::get('/get-rakuten-items', [RakutenController::class, 'get_rakuten_items']);
-Route::get('/search', [RakutenController::class, 'searchItems'])->name('search');
+Route::get('/rakuten-search', [RakutenController::class, 'searchItems'])->name('search');
 
 //楽天の情報を格納
 Route::post('product_save',[RakutenController::class,'save']);
