@@ -6,19 +6,20 @@
 
 
 <div class="container">
+    <div class="search">
         <form action="{{ route('search') }}" method="GET">
             <input type="text" name="keyword" placeholder="検索キーワードを入力" value="{{ request('keyword')}}">
             {{-- <input type="text" name="genreId" placeholder="ジャンルIDを入力" value="{{ request('genreId') }}"> --}}
             <button type="submit">検索</button>
         </form>
-        
     </div>
 
-@if(request('keyword'))
-    <p>検索キーワード: {{ request('keyword') }}</p>
-@endif
 
-<div class="container">
+    @if(request('keyword'))
+        <p>検索キーワード: {{ request('keyword') }}</p>
+    @endif
+
+    <div class="container-sort">
     <form action="{{ route('search') }}" method="GET">
         <input type="hidden" name="keyword" placeholder="検索キーワードを入力" value="{{ request('keyword') }}">
         <select name="sort_key">
@@ -32,15 +33,15 @@
         </select>
         <input type="submit" value="ソート">
     </form>
-</div>
+    </div>
 
 
 
-        <div class="contents_all">
+        <div class="contents_all row">
         @if(isset($items))
             <!-- 検索結果表示などを追加 -->
             @foreach($items as $item)
-                <div class="content" >
+                <div class="content col-sm-3" >
                     @if(isset($item['img']))
                     <img class="img" src="{{ $item['img'] }}" alt="{{ $item['title'] }}">
                 @else
@@ -65,5 +66,5 @@
         @endif
 
     </div>
-
+</div>
     @endsection

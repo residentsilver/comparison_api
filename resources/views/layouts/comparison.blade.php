@@ -1,4 +1,5 @@
 <html>
+   
 <head>
         <!-- BootStrap読み込み -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -10,14 +11,14 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
             integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous">
         </script>
+        <meta name="viewport" content="width=device-width">
         <!-- BootStrap -->
         
     <title>@yield('title')</title>
 
     <style>
       body {
-            margin: 0 auto; 
-            width: 1300px;
+            /* margin: 0 auto;*/
         }
 
         header{
@@ -96,7 +97,7 @@
                 margin-left:500px; 
             } */
     
-    div.contents_all{
+    /* div.contents_all{
         display: flex;
         width: 1300px;
         flex-wrap:wrap ;
@@ -109,7 +110,7 @@
         margin: 10px;  
         background-color:  
     }
-    
+     */
     </style>
 </head>
 <body>
