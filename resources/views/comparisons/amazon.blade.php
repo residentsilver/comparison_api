@@ -2,7 +2,12 @@
 
 @section('content')
 
-@dd($items)
+{{-- @dd($items)     --}}
 
+{{-- 
+@foreach ($items as $item) {
+   <p> {{$item['Iteminfo']['Title']['DisplayValue']}};
+} 
+@endforeach --}}
 
 @endsection
