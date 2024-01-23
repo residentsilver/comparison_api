@@ -27,5 +27,9 @@ public function index(Request $request){
     return $items ->toArray();//配列として渡している
 }
 
+public function Top()
+{
+    return view('comparisons.top');
+}
 
 }
