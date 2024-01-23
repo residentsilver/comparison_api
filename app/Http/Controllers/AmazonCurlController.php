@@ -8,12 +8,12 @@ use Illuminate\Support\Facades\Storage;
 
 class AmazonCurlController extends Controller
 {
-    public function searchAmazonProducts()
+    public function searchAmazonProducts(Request $request)
     {
         
         // session_start();
+        $name = $request->input('name');;
         include_once base_path('amazon.php');
-        
         $amazonData = $response;
 
         //json形式の文字列をPHPの配列に変換
@@ -22,4 +22,10 @@ class AmazonCurlController extends Controller
         // $amazonData = $_SESSION['api_data'];
         return view('comparisons.amazon',['items' => $apiData]);
     }
+
+    public function AmazonTop()
+    {
+        return view('comparisons.amazon-top');
+}
+
 }

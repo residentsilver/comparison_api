@@ -6,19 +6,40 @@
 // Put your Secret Key in place of **********
 $serviceName="ProductAdvertisingAPI";
 $region="us-west-2";
-
-$rakutenAppId = env('RAKUTEN_APPLICATION_ID');
-$accessKey= env('ACCESS_KEY_ID');
+$accessKey= env('ACCESS_KEY_ID');	
 $secretKey=env('SEACRET_KEY');
-// $accessKey="AKIAJGGZ7T37RQECN6SA";
-// $secretKey="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";
 
+// $name="鬼滅の刃";
 $payload="{"
-        ." \"Keywords\": \"鬼滅の刃\","
-        ." \"PartnerTag\": \"asurion01-22\","
-        ." \"PartnerType\": \"Associates\","
-        ." \"Marketplace\": \"www.amazon.co.jp\""
-        ."}";
+    ." \"Keywords\": \"$name\","
+    ." \"Resources\": ["
+    ."  \"Images.Primary.Small\","
+    ."  \"Images.Primary.Medium\","
+    ."  \"Images.Primary.Large\","
+    ."  \"Images.Primary.HighRes\","
+    ."  \"Images.Variants.Small\","
+    ."  \"Images.Variants.Medium\","
+    ."  \"Images.Variants.Large\","
+    ."  \"Images.Variants.HighRes\","
+    ."  \"ItemInfo.ByLineInfo\","
+    ."  \"ItemInfo.ContentInfo\","
+    ."  \"ItemInfo.ContentRating\","
+    ."  \"ItemInfo.Classifications\","
+    ."  \"ItemInfo.ExternalIds\","
+    ."  \"ItemInfo.Features\","
+    ."  \"ItemInfo.ManufactureInfo\","
+    ."  \"ItemInfo.ProductInfo\","
+    ."  \"ItemInfo.TechnicalInfo\","
+    ."  \"ItemInfo.Title\","
+    ."  \"ItemInfo.TradeInInfo\","
+    ."  \"Offers.Listings.Price\","
+    ."  \"Offers.Summaries.LowestPrice\""
+    ." ],"
+    ." \"Title\": \"$name\","
+    ." \"PartnerTag\": \"asurion01-22\","
+    ." \"PartnerType\": \"Associates\","
+    ." \"Marketplace\": \"www.amazon.co.jp\""
+    ."}";
 $host="webservices.amazon.co.jp";
 $uriPath="/paapi5/searchitems";
 $awsv4 = new AwsV4 ($accessKey, $secretKey);
@@ -54,9 +75,7 @@ $response = @stream_get_contents ( $fp );
 if ($response === false) {
     throw new Exception ( "Exception Occured" );
 }
-
 // echo $response;
-$_SESSION['api_data'] = $response;
 
 class AwsV4 {
 

@@ -67,5 +67,8 @@ Route::post('/product_sort', 'RakutenController@save')->name('product.save');
 */
 
 //amazonの情報を取得したい
-Route::get('/amazon', [AmazonCurlController::class, 'searchAmazonProducts']);
-Route::post('/amazon', [AmazonCurlController::class, 'searchAmazonProducts']);
+Route::get('/amazon', [AmazonCurlController::class, 'AmazonTop']);
+Route::post('/amazon', [AmazonCurlController::class, 'AmazonTop']);
+
+Route::get('/amazon-search', [AmazonCurlController::class, 'searchAmazonProducts']);
+Route::post('/amazon-search', [AmazonCurlController::class, 'searchAmazonProducts']);
