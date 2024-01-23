@@ -54,7 +54,9 @@ $response = @stream_get_contents ( $fp );
 if ($response === false) {
     throw new Exception ( "Exception Occured" );
 }
-echo $response;
+
+// echo $response;
+$_SESSION['api_data'] = $response;
 
 class AwsV4 {
 
