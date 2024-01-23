@@ -73,7 +73,7 @@ class RakutenController extends Controller
     //         // return view('comparisons.top', ['items' => $item]);
     //     }
 
-        //APIを取得しすぎエラーが出る
+        //APIを複数取得できたパターン
     public function searchItems(Request $request)
     {
         $client = new RakutenRws_Client();
@@ -90,6 +90,9 @@ class RakutenController extends Controller
             if (!$response->isOk()) {
                 return 'Error:' . $response->getMessage();
             }
+
+
+          
     
             $itemKey = ['itemName', 'itemPrice', 'itemCaption', 'shopName', 'shopUrl', 'itemUrl'];
     
@@ -116,11 +119,10 @@ class RakutenController extends Controller
                 $items[] = $tmpItem;
 
             }
-
         }
     
         // ソート機能のため、以下のみ追加
-        $sortKey = $request->input('sort_key', 'price'); // リクエストからソートのキーを取得
+        $sortKey = $request->input('sort_key', 'price');// リクエストからソートのキーを取得
         $sortOrder = $request->input('sort_order', 'asc'); // リクエストからソートの順序を取得
     
         $items = collect($items)->sortBy($sortKey, SORT_NATURAL, $sortOrder === 'desc')->values()->all();
