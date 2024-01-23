@@ -128,7 +128,11 @@
                 <ul class="navbar-nav">
 
                     <li class="nav-item">
-                        <a class="nav-link" href="/search">Search</a>
+                        <a class="nav-link" href="/search">楽天で検索</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/amazon">Amazonで検索</a>
                     </li>
 
                     <li class="nav-item">
