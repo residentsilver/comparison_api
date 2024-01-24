@@ -152,11 +152,11 @@
                     <!-- ドロップダウンタイプここまで -->
 
                     <li class="nav-item">
-                        <a class="nav-link" href="/masters">部屋管理</a>
+                        <a class="nav-link" href="/login">ログイン</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="/rooms">部屋種別</a>
+                        <a class="nav-link" href="/logout">ログアウト</a>
                     </li>
 
                 </ul>

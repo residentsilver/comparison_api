@@ -34,7 +34,7 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 
-Route::get('/top', [ComparisonController::class, 'Top']);
+Route::get('/top', [ComparisonController::class, 'Top'])->middleware('auth');
 
 /*
 |--------------------------------------------------------------------------
@@ -44,28 +44,28 @@ Route::get('/top', [ComparisonController::class, 'Top']);
 */
 
 //楽天のトップページを表示する
-Route::get('/rakuten', [RakutenController::class, 'RakutenTop']);
+Route::get('/rakuten', [RakutenController::class, 'RakutenTop'])->middleware('auth');
 
 //楽天の情報を削除
-Route::delete('/index/{comparison}', [RakutenController::class, 'delete']);
+Route::delete('/index/{comparison}', [RakutenController::class, 'delete'])->middleware('auth');
 
 //楽天の情報を取得
-Route::get('/get-rakuten-items', [RakutenController::class, 'get_rakuten_items']);
-Route::get('/rakuten-search', [RakutenController::class, 'searchItems'])->name('search');
+Route::get('/get-rakuten-items', [RakutenController::class, 'get_rakuten_items'])->middleware('auth');
+Route::get('/rakuten-search', [RakutenController::class, 'searchItems'])->name('search')->middleware('auth');
 
 //楽天の情報を格納
-Route::post('product_save',[RakutenController::class,'save']);
+Route::post('product_save',[RakutenController::class,'save'])->middleware('auth');
 
 //楽天の格納情報を表示
-Route::get('/index', [RakutenController::class, 'index']);
+Route::get('/index', [RakutenController::class, 'index'])->middleware('auth');
 
 //楽天の格納情報を部分一致検索
-Route::get('/index-search', [RakutenController::class, 'index_search']);
+Route::get('/index-search', [RakutenController::class, 'index_search'])->middleware('auth');
 
 
 
 //ソート機能
-Route::post('/product_sort', 'RakutenController@save')->name('product.save');
+Route::post('/product_sort', 'RakutenController@save')->name('product.save')->middleware('auth');
 /*
 |--------------------------------------------------------------------------
 | amazon Routes
@@ -74,8 +74,8 @@ Route::post('/product_sort', 'RakutenController@save')->name('product.save');
 */
 
 //amazonの情報を取得したい
-Route::get('/amazon', [AmazonCurlController::class, 'AmazonTop']);
-Route::post('/amazon', [AmazonCurlController::class, 'AmazonTop']);
+Route::get('/amazon', [AmazonCurlController::class, 'AmazonTop'])->middleware('auth');
+Route::post('/amazon', [AmazonCurlController::class, 'AmazonTop'])->middleware('auth');
 
-Route::get('/amazon-search', [AmazonCurlController::class, 'searchAmazonProducts']);
-Route::post('/amazon-search', [AmazonCurlController::class, 'searchAmazonProducts']);
+Route::get('/amazon-search', [AmazonCurlController::class, 'searchAmazonProducts'])->middleware('auth');
+Route::post('/amazon-search', [AmazonCurlController::class, 'searchAmazonProducts'])->middleware('auth');

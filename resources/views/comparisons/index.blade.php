@@ -15,7 +15,9 @@
 <input type="submit" value="検索">
 </form>
 
-    <table>
+<div class="table-borderless">
+    <table class="table table-hover">
+        <thead class="thead-dark">
         <th>ID</th>
         <th>商品名</th>
         <th>値段</th>
@@ -23,6 +25,9 @@
         <th>ショップ名</th>
         <th>保存日</th>
         <th>ボタン</th>
+    </thead>
+    <tbody>
+
         @foreach ($comparisons as $comparison)  
             <tr>
                 <td>{{ $comparison->id }}</td>
@@ -40,8 +45,10 @@
                     </form>
                 </td>
             </tr>
+    </tbody>
         @endforeach
 
 
         </table>
+    </div>
 </div>
