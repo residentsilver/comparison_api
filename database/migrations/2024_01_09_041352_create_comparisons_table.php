@@ -14,7 +14,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('comparisons', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->bigIncrements('favorite_id');
+            $table->string('userid');
             $table->string('name');
             $table->integer('price');
             $table->string('img');

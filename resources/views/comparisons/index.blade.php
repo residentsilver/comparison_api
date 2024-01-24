@@ -30,7 +30,7 @@
 
         @foreach ($comparisons as $comparison)  
             <tr>
-                <td>{{ $comparison->id }}</td>
+                <td>{{ $comparison->favorite_id }}</td>
                 <td>{{ $comparison->name }}</td>
                 <td>{{ $comparison->price }}円</td>
                 <td><img src="{{ $comparison->img }}"></td>

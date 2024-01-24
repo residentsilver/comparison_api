@@ -2,8 +2,7 @@
 
     @section('content')
 
-    {{-- @dd($items); --}}
-
+    {{-- @dd($userID); --}}
 
 <div class="container">
     <div class="search">
@@ -55,6 +54,7 @@
 
                 <form action="/product_save" method="post">
                     @csrf
+                    <input type="hidden" name="userid" value="{{$userID}}">
                     <input type="hidden" name="name" value="{{$item['title']}}">
                     <input type="hidden" name="price" value="{{$item['price']}}">
                     <input type="hidden" name="img" value="{{$item['img']}}">

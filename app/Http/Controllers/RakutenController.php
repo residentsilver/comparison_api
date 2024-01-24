@@ -7,8 +7,19 @@ use GuzzleHttp\Client;
 use App\Models\comparison;
 use RakutenRws_Client;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Auth;
+
 class RakutenController extends Controller
 {
+
+    //ログインユーザのid取得のために必要
+    protected $auth;
+
+    public function __construct(Auth $auth)
+    {
+        $this->auth = $auth;
+    }
+
     // public function get_rakuten_items()
     // {
     //     $client = new RakutenRws_Client();
@@ -76,6 +87,8 @@ class RakutenController extends Controller
         //APIを複数取得できたパターン
     public function searchItems(Request $request)
     {
+
+        $userID = Auth::id();
         $client = new RakutenRws_Client();
         $rakutenAppId = env('RAKUTEN_APPLICATION_ID');
         $client->setApplicationId($rakutenAppId);
@@ -127,11 +140,11 @@ class RakutenController extends Controller
     
         $items = collect($items)->sortBy($sortKey, SORT_NATURAL, $sortOrder === 'desc')->values()->all();
     
-        return view('comparisons.rakuten', compact('items'));
+        return view('comparisons.rakuten', compact('items','userID'));
     }
     
 
-    //追加処理　nameカラムが一致する場合更新
+    //追加処理 nameカラムが一致する場合更新
     public function save(Request $request)
     {
         // $comparison = new comparison();
