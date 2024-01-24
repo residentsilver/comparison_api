@@ -8,7 +8,7 @@ $serviceName="ProductAdvertisingAPI";
 $region="us-west-2";
 $accessKey= env('ACCESS_KEY_ID');	
 $secretKey=env('SEACRET_KEY');
-
+$associate=env('ASSOCIATE_TAG');
 // $name="鬼滅の刃";
 $payload="{"
     ." \"Keywords\": \"$name\","
@@ -37,7 +37,7 @@ $payload="{"
     ." ],"
     ." \"Title\": \"$name\","
     ." \"ItemPage\": 1,"
-    ." \"PartnerTag\": \"asurion01-22\","
+    ." \"PartnerTag\": \"$associate\","
     ." \"PartnerType\": \"Associates\","
     ." \"Marketplace\": \"www.amazon.co.jp\""
     ."}";
