@@ -5,7 +5,7 @@
 <div class="container">
    <p>楽天で検索をする</p>
     <div class="search">
-        <form action="{{ route('search') }}" method="GET">
+        <form action="/rakuten-search/1" method="GET">
             <input type="text" name="keyword" placeholder="検索キーワードを入力" value="{{ request('keyword')}}">
             <input type="hidden" name="page" value="{{$page}}">
             {{-- <input type="text" name="genreId" placeholder="ジャンルIDを入力" value="{{ request('genreId') }}"> --}}

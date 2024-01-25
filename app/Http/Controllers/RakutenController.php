@@ -21,7 +21,7 @@ class RakutenController extends Controller
     }
 
     //ページネーションでの取得を実現
-    public function get_rakuten_items($page)
+    public function get_rakuten_items(Request $request , $page)
     {
         $userID = Auth::id();
         $client = new RakutenRws_Client();
@@ -29,7 +29,8 @@ class RakutenController extends Controller
         $client->setApplicationId($rakutenAppId);
         $currentPage  =$page;
         $totalPages = 10; 
-        $response = $client->execute('IchibaItemSearch', ['keyword' => 'きかんしゃトーマス', 'page' => $page]);
+        $keyword = $request->input('keyword', 'きかんしゃトーマス'); // デフォルトは 'きかんしゃトーマス'
+        $response = $client->execute('IchibaItemSearch', ['keyword' => $keyword, 'page' => $page]);
         if (!$response->isOk()) {
             return 'Error:' . $response->getMessage();
         } else {
@@ -48,7 +49,7 @@ class RakutenController extends Controller
             // $sortKey = $request->input('sort_key', 'price'); // リクエストからソートのキーを取得
             // $sortOrder = $request->input('sort_order', 'asc'); // リクエストからソートの順序を取得
             // $items = collect($items)->sortBy($sortKey, SORT_NATURAL, $sortOrder === 'desc')->values()->all();
-            return view('comparisons.rakuten',  compact('items','userID','currentPage','totalPages'));
+            return view('comparisons.rakuten',  compact('items','userID','currentPage','totalPages','request'));
         }
     }
 //1回のページ訪問で複数のAPIを実行している
@@ -193,6 +194,7 @@ class RakutenController extends Controller
     //楽天のトップページを表示する
     public function RakutenTop()
     {
+        $page=1;
         return view('comparisons.rakuten-top',compact('page'));
 }
 
