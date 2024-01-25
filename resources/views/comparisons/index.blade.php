@@ -9,6 +9,7 @@
 
 <div class="table-wrap">
 
+    {{$name}}さんの保存した商品一覧
 <form action="/index-search" method="GET">	<table>
 <label for="search">商品名で検索：</label>	
 <input type="text" name="search" id="search" value="{{ request('search') }}">	
