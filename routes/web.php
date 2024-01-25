@@ -79,3 +79,5 @@ Route::post('/amazon', [AmazonCurlController::class, 'AmazonTop'])->middleware('
 
 Route::get('/amazon-search', [AmazonCurlController::class, 'searchAmazonProducts'])->middleware('auth');
 Route::post('/amazon-search', [AmazonCurlController::class, 'searchAmazonProducts'])->middleware('auth');
+
+Route::post('amazon_save',[AmazonCurlController::class,'save'])->middleware('auth');

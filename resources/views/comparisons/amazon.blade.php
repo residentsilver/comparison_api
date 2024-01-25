@@ -1,7 +1,7 @@
 @extends('layouts.comparison')
 
 @section('content')
-
+{{-- <p>{{$userID}}</p> --}}
 {{-- @dd($items) --}}
 {{-- @dd($items[0]['Images']['Primary']['Medium'] ) --}}
 {{-- {{$items[0]['ItemInfo']['Title']['DisplayValue']}} --}}
@@ -25,8 +25,9 @@
    <p> {{$item['ItemInfo']['Title']['DisplayValue']}}
       <p class="price">{{ $item['Offers']['Listings']['0']['Price']['Amount'] }}円</p>
          <!-- 他の情報も表示可能 -->
-         <form action="/product_save" method="post">
+         <form action="/amazon_save" method="post">
             @csrf
+            <input type="hidden" name="userid" value="{{$userID}}">
             <input type="hidden" name="name" value="{{$item['ItemInfo']['Title']['DisplayValue']}}">
             <input type="hidden" name="price" value="{{$item['Offers']['Listings']['0']['Price']['Amount']}}">
             <input type="hidden" name="img" value="{{$item['Images']['Primary']['Medium']['URL'] }}">
