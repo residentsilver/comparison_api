@@ -37,10 +37,9 @@
                 <td>{{ $comparison->shop }}</td>
                 <td>{{\Carbon\Carbon::parse($comparison->created_at)->format('Y-m-d')}}</td>
                 <td>
-                    <form action="{{ url('index/' . $comparison->id) }}" method="POST">
+                    <form action="{{ url('index/' . $comparison->favorite_id) }}" method="POST">
                         @csrf
                         @method('DELETE')
-
                     <input type="submit" value="削除" class="btn btn-danger">
                     </form>
                 </td>
