@@ -20,33 +20,38 @@ class RakutenController extends Controller
         $this->auth = $auth;
     }
 
-    // public function get_rakuten_items()
-    // {
-    //     $client = new RakutenRws_Client();
-    //     $rakutenAppId = env('RAKUTEN_APPLICATION_ID');
-    //     $client->setApplicationId($rakutenAppId);
-    //     $response = $client->execute('IchibaItemSearch', array(
-    //         'keyword' => 'きかんしゃトーマス'
-    //     ));
-
-    //     if (!$response->isOk()) {
-    //         return 'Error:' . $response->getMessage();
-    //     } else {
-    //         $items = [];
-    //         foreach ($response as $key => $rakutenItem) {
-    //             $items[$key]['title'] = $rakutenItem['itemName'];
-    //             $items[$key]['price'] = $rakutenItem['itemPrice'];
-    //             $items[$key]['url'] = $rakutenItem['itemUrl'];
-    //             $items[$key]['shop'] = $rakutenItem['shop'];
-    //             if ($rakutenItem['imageFlag']) {
-    //                 $imgSrc = $rakutenItem['mediumImageUrls'][0]['imageUrl'];
-    //                 $items[$key]['img'] = preg_replace('/^http:/', 'https:', $imgSrc);
-    //             }
-    //         }
-    //         view('comparisons.rakuten', ['items' => $items]);
-    //     }
-    // }
-
+    //ページネーションでの取得を実現
+    public function get_rakuten_items($page)
+    {
+        $userID = Auth::id();
+        $client = new RakutenRws_Client();
+        $rakutenAppId = env('RAKUTEN_APPLICATION_ID');
+        $client->setApplicationId($rakutenAppId);
+        $currentPage  =$page;
+        $totalPages = 10; 
+        $response = $client->execute('IchibaItemSearch', ['keyword' => 'きかんしゃトーマス', 'page' => $page]);
+        if (!$response->isOk()) {
+            return 'Error:' . $response->getMessage();
+        } else {
+            $items = [];
+            foreach ($response as $key => $rakutenItem) {
+                $items[$key]['title'] = $rakutenItem['itemName'];
+                $items[$key]['price'] = $rakutenItem['itemPrice'];
+                $items[$key]['url'] = $rakutenItem['itemUrl'];
+                $items[$key]['shop'] = $rakutenItem['shopName'];
+                if ($rakutenItem['imageFlag']) {
+                    $imgSrc = $rakutenItem['mediumImageUrls'][0]['imageUrl'];
+                    $items[$key]['img'] = preg_replace('/^http:/', 'https:', $imgSrc);
+                }
+            }
+               //ソート機能のため、以下のみ追加
+            // $sortKey = $request->input('sort_key', 'price'); // リクエストからソートのキーを取得
+            // $sortOrder = $request->input('sort_order', 'asc'); // リクエストからソートの順序を取得
+            // $items = collect($items)->sortBy($sortKey, SORT_NATURAL, $sortOrder === 'desc')->values()->all();
+            return view('comparisons.rakuten',  compact('items','userID','currentPage','totalPages'));
+        }
+    }
+//1回のページ訪問で複数のAPIを実行している
     // public function searchItems(Request $request)
     // {
     //     $client = new RakutenRws_Client();
@@ -133,11 +138,9 @@ class RakutenController extends Controller
 
             }
         }
-    
         // ソート機能のため、以下のみ追加
         $sortKey = $request->input('sort_key', 'price');// リクエストからソートのキーを取得
         $sortOrder = $request->input('sort_order', 'asc'); // リクエストからソートの順序を取得
-    
         $items = collect($items)->sortBy($sortKey, SORT_NATURAL, $sortOrder === 'desc')->values()->all();
     
         return view('comparisons.rakuten', compact('items','userID'));
@@ -190,7 +193,7 @@ class RakutenController extends Controller
     //楽天のトップページを表示する
     public function RakutenTop()
     {
-        return view('comparisons.rakuten-top');
+        return view('comparisons.rakuten-top',compact('page'));
 }
 
 }

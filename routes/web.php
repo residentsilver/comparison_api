@@ -49,9 +49,11 @@ Route::get('/rakuten', [RakutenController::class, 'RakutenTop'])->middleware('au
 //楽天の情報を削除
 Route::delete('/index/{comparison}', [RakutenController::class, 'delete'])->middleware('auth');
 
-//楽天の情報を取得
-Route::get('/get-rakuten-items', [RakutenController::class, 'get_rakuten_items'])->middleware('auth');
-Route::get('/rakuten-search', [RakutenController::class, 'searchItems'])->name('search')->middleware('auth');
+//楽天の情報を取得(ページネーション)
+Route::get('/rakuten-search/{page}', [RakutenController::class, 'get_rakuten_items'])->name('search')->middleware('auth');
+
+//1ページで5回のAPIを取得している
+// Route::get('/rakuten-search', [RakutenController::class, 'searchItems'])->name('search')->middleware('auth');
 
 //楽天の情報を格納
 Route::post('product_save',[RakutenController::class,'save'])->middleware('auth');
@@ -81,3 +83,11 @@ Route::get('/amazon-search', [AmazonCurlController::class, 'searchAmazonProducts
 Route::post('/amazon-search', [AmazonCurlController::class, 'searchAmazonProducts'])->middleware('auth');
 
 Route::post('amazon_save',[AmazonCurlController::class,'save'])->middleware('auth');
+
+
+/*
+|--------------------------------------------------------------------------
+|test
+|--------------------------------------------------------------------------
+|
+*/

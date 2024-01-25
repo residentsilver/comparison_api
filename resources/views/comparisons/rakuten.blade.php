@@ -1,8 +1,10 @@
     @extends('layouts.comparison')
-
+    @php
+        $url = route('test', ['page' => 1]);
+    @endphp
     @section('content')
 
-    {{-- @dd($userID); --}}
+    {{-- @dd($items); --}}
 
 <div class="container">
     <div class="search">
@@ -65,6 +67,23 @@
             @endforeach
         @endif
 
+
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <li class="page-item{{ $currentPage == 1 ? ' disabled' : '' }}">
+                    <a class="page-link" href="{{ $currentPage > 1 ? $currentPage - 1 : '#' }}" tabindex="-1">Previous</a>
+                </li>
+                @for ($i = max(1, $currentPage - 1); $i <= min($totalPages, $currentPage + 1); $i++)
+                    <li class="page-item{{ $i == $currentPage ? ' active' : '' }}">
+                        <a class="page-link" href="{{ $i }}">{{ $i }}</a>
+                    </li>
+                @endfor
+                <li class="page-item{{ $currentPage == $totalPages ? ' disabled' : '' }}">
+                    <a class="page-link" href="{{ $currentPage < $totalPages ? $currentPage + 1 : '#' }}">Next</a>
+                </li>
+            </ul>
+        </nav>
+        
     </div>
 </div>
     @endsection
