@@ -17,9 +17,9 @@ class comparison extends Model
     }
 
     
-    public function login_get()
-    {
-        return $this->belongsTo(User::class,'userid','id');
-    }
+    // public function login_get()
+    // {
+    //     return $this->belongsTo(User::class,'userid','id');
+    // }
     
 }
