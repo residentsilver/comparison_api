@@ -27,10 +27,11 @@ class RakutenController extends Controller
         $client = new RakutenRws_Client();
         $rakutenAppId = env('RAKUTEN_APPLICATION_ID');
         $client->setApplicationId($rakutenAppId);
-        $currentPage  =$page;
         $totalPages = 10; 
-        $keyword = $request->input('keyword', 'きかんしゃトーマス'); // デフォルトは 'きかんしゃトーマス'
-        $response = $client->execute('IchibaItemSearch', ['keyword' => $keyword, 'page' => $page]);
+        $currentPage  =$page; 
+        $sort = $request->input('sort'); 
+        $keyword = $request->input('keyword'); 
+        $response = $client->execute('IchibaItemSearch', ['keyword' => $keyword, 'page' => $page ,'sort' =>$sort]);
         if (!$response->isOk()) {
             return 'Error:' . $response->getMessage();
         } else {
@@ -45,13 +46,11 @@ class RakutenController extends Controller
                     $items[$key]['img'] = preg_replace('/^http:/', 'https:', $imgSrc);
                 }
             }
-               //ソート機能のため、以下のみ追加
-            // $sortKey = $request->input('sort_key', 'price'); // リクエストからソートのキーを取得
-            // $sortOrder = $request->input('sort_order', 'asc'); // リクエストからソートの順序を取得
-            // $items = collect($items)->sortBy($sortKey, SORT_NATURAL, $sortOrder === 'desc')->values()->all();
-            return view('comparisons.rakuten',  compact('items','userID','currentPage','totalPages','request'));
+            return view('comparisons.rakuten',  compact('items','userID','currentPage','totalPages','request','sort'));
         }
     }
+
+ 
 //1回のページ訪問で複数のAPIを実行している
     // public function searchItems(Request $request)
     // {

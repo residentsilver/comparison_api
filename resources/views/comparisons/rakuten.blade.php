@@ -4,15 +4,22 @@
     @endphp
     @section('content')
 
-    {{-- @dd($request); --}}
+    {{-- @dd(request('sort')); --}}
+    {{-- @dd($sort); --}}
+
 
 <div class="container">
     <div class="search">
-        <form action="/rakuten-search/1" method="GET">
+        <form action="{{ route('search', ['page' => 1]) }}" method="GET">
             <input type="text" name="keyword" value="{{ request('keyword')}}">
+            <input type="hidden" name="sort" value="{{ request('sort', 'standard') }}">
             {{-- <input type="text" name="genreId" placeholder="ジャンルIDを入力" value="{{ request('genreId') }}"> --}}
             <button type="submit">検索</button>
         </form>
+    </div>
+
+    <div class="search">
+
     </div>
 
 
@@ -59,7 +66,7 @@
                     <input type="hidden" name="userid" value="{{$userID}}">
                     <input type="hidden" name="name" value="{{$item['title']}}">
                     <input type="hidden" name="price" value="{{$item['price']}}">
-                    <input type="hidden" name="img" value="{{$item['img']}}">
+                    {{-- <input type="hidden" name="img" value="{{$item['img']}}"> --}}
                     <input type="hidden" name="shop" value="{{$item['shop']}}">
                     <input type="submit" value="情報を格納">
                 </form>
@@ -70,15 +77,15 @@
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
                 <li class="page-item{{ $currentPage == 1 ? ' disabled' : '' }}">
-                    <a class="page-link" href="{{ $currentPage > 1 ? route('search', ['page' => $currentPage - 1, 'keyword' => request('keyword')]) : '#' }}" tabindex="-1">Previous</a>
+                    <a class="page-link" href="{{ $currentPage > 1 ? route('search', ['page' => $currentPage - 1, 'keyword' => request('keyword'),'sort' =>request('sort')])  : '#' }}" tabindex="-1">Previous</a>
                 </li>
                 @for ($i = max(1, $currentPage - 1); $i <= min($totalPages, $currentPage + 1); $i++)
                     <li class="page-item{{ $i == $currentPage ? ' active' : '' }}">
-                        <a class="page-link" href="{{ route('search', ['page' => $i, 'keyword' => request('keyword')]) }}">{{ $i }}</a>
+                        <a class="page-link" href="{{ route('search', ['page' => $i, 'keyword' => request('keyword'),'sort' =>request('sort')]) }}">{{ $i }}</a>
                     </li>
                 @endfor
                 <li class="page-item{{ $currentPage == $totalPages ? ' disabled' : '' }}">
-                    <a class="page-link" href="{{ $currentPage < $totalPages ? route('search', ['page' => $currentPage + 1, 'keyword' => request('keyword')]) : '#' }}">Next</a>
+                    <a class="page-link" href="{{ $currentPage < $totalPages ? route('search', ['page' => $currentPage + 1, 'keyword' => request('keyword'),'sort' =>request('sort')])  : '#' }}">Next</a>
                 </li>
             </ul>
         </nav>
