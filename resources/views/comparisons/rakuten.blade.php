@@ -19,7 +19,20 @@
     </div>
 
     <div class="search">
-
+        <!-- フォーム -->
+        <form id="sort-form" action="{{ route('search', ['page' => $currentPage]) }}" method="get">
+    <!-- ドロップダウン -->
+            <select id="dropdown-select" name="sort">
+                <option value="+itemPrice">価格昇順</option>
+                <option value="-itemPrice">価格降順</option>
+                <option value="+updateTimestamp">最新順</option>
+                <option value="-updateTimestamp">古い順</option>
+                <option value="standard">標準</option>
+            </select>
+            <input type="hidden" name="keyword" value="{{ request('keyword')}}">
+            <input type="hidden" name="page" value="{{ request('currentPage')}}">
+            <button type="submit">検索</button>
+        </form>
     </div>
 
 
@@ -75,4 +88,13 @@
         
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // ドロップダウンが変更されたときにフォームをサブミット
+        document.getElementById('dropdown-select').addEventListener('change', function () {
+            document.getElementById('sort-form').submit();
+        });
+    });
+</script>
     @endsection
