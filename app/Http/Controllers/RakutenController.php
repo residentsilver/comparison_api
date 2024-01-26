@@ -79,14 +79,7 @@ class RakutenController extends Controller
     //             }
     //         }
     //     }
-    //         //ソート機能のため、以下のみ追加
-    //         $sortKey = $request->input('sort_key', 'price'); // リクエストからソートのキーを取得
-    //         $sortOrder = $request->input('sort_order', 'asc'); // リクエストからソートの順序を取得
-
-    //         $items = collect($items)->sortBy($sortKey, SORT_NATURAL, $sortOrder === 'desc')->values()->all();
     //         return view('comparisons.rakuten', compact('items'));
-    //         //ここまで
-    //         // return view('comparisons.rakuten', ['items' => $item]);
     //     }
 
         //APIを複数取得できたパターン
@@ -108,44 +101,29 @@ class RakutenController extends Controller
             if (!$response->isOk()) {
                 return 'Error:' . $response->getMessage();
             }
-
-
-          
     
             $itemKey = ['itemName', 'itemPrice', 'itemCaption', 'shopName', 'shopUrl', 'itemUrl'];
-    
             foreach ($response as $key => $rakutenItem) {
                 $tmpItem = [];
-    
                 // 各商品情報を取得
                 $tmpItem['title'] = $rakutenItem['itemName'];
                 $tmpItem['price'] = $rakutenItem['itemPrice'];
                 $tmpItem['url'] = $rakutenItem['itemUrl'];
                 $tmpItem['shop'] = $rakutenItem['shopName'];
-    
                 if ($rakutenItem['imageFlag']) {
                     $imgSrc = $rakutenItem['mediumImageUrls'][0]['imageUrl'];
                     $tmpItem['img'] = preg_replace('/^http:/', 'https:', $imgSrc);
                 }
-    
                 // 必要な項目だけを一時的な商品情報に格納
                 foreach ($itemKey as $itemField) {
                     $tmpItem[$itemField] = $rakutenItem[$itemField];
                 }
-    
                 // 一時的な商品情報をリストに追加
                 $items[] = $tmpItem;
-
             }
         }
-        // ソート機能のため、以下のみ追加
-        $sortKey = $request->input('sort_key', 'price');// リクエストからソートのキーを取得
-        $sortOrder = $request->input('sort_order', 'asc'); // リクエストからソートの順序を取得
-        $items = collect($items)->sortBy($sortKey, SORT_NATURAL, $sortOrder === 'desc')->values()->all();
-    
         return view('comparisons.rakuten', compact('items','userID'));
     }
-    
 
     //追加処理 nameカラムが一致する場合更新
     public function save(Request $request)

@@ -64,10 +64,6 @@ Route::get('/index', [RakutenController::class, 'index'])->middleware('auth');
 //楽天の格納情報を部分一致検索
 Route::get('/index-search', [RakutenController::class, 'index_search'])->middleware('auth');
 
-
-
-//ソート機能
-Route::post('/product_sort', 'RakutenController@save')->name('product.save')->middleware('auth');
 /*
 |--------------------------------------------------------------------------
 | amazon Routes
