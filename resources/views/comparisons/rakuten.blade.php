@@ -23,6 +23,7 @@
         <form id="sort-form" action="{{ route('search', ['page' => $currentPage]) }}" method="get">
     <!-- ドロップダウン -->
             <select id="dropdown-select" name="sort">
+                <option value="example">順番を選択</option>
                 <option value="+itemPrice">価格昇順</option>
                 <option value="-itemPrice">価格降順</option>
                 <option value="+updateTimestamp">最新順</option>
@@ -31,7 +32,7 @@
             </select>
             <input type="hidden" name="keyword" value="{{ request('keyword')}}">
             <input type="hidden" name="page" value="{{ request('currentPage')}}">
-            <button type="submit">検索</button>
+            {{-- <button type="submit">検索</button> --}}
         </form>
     </div>
 
@@ -61,7 +62,7 @@
                     <input type="hidden" name="userid" value="{{$userID}}">
                     <input type="hidden" name="name" value="{{$item['title']}}">
                     <input type="hidden" name="price" value="{{$item['price']}}">
-                    {{-- <input type="hidden" name="img" value="{{$item['img']}}"> --}}
+                    <input type="hidden" name="img" value="{{$item['img']}}">
                     <input type="hidden" name="shop" value="{{$item['shop']}}">
                     <input type="submit" value="情報を格納">
                 </form>
@@ -90,9 +91,11 @@
 </div>
 
 <script>
+    //ページのDOM要素がすべて読み込まれたら、発火する
+    //第二引数は無名関数
     document.addEventListener('DOMContentLoaded', function () {
-        // ドロップダウンが変更されたときにフォームをサブミット
         document.getElementById('dropdown-select').addEventListener('change', function () {
+    //ドロップダウンが変更されたときにフォームをサブミット
             document.getElementById('sort-form').submit();
         });
     });
