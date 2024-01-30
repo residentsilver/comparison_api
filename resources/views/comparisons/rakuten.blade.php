@@ -22,6 +22,7 @@
         <!-- フォーム -->
         <form id="sort-form" action="{{ route('search', ['page' => $currentPage]) }}" method="get">
     <!-- ドロップダウン -->
+            並べ替え　　
             <select id="dropdown-select" name="sort">
                 <option value="example">順番を選択</option>
                 <option value="+itemPrice">価格昇順</option>

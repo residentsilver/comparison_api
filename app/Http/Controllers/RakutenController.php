@@ -44,6 +44,8 @@ class RakutenController extends Controller
                 if ($rakutenItem['imageFlag']) {
                     $imgSrc = $rakutenItem['mediumImageUrls'][0]['imageUrl'];
                     $items[$key]['img'] = preg_replace('/^http:/', 'https:', $imgSrc);
+                }else{
+                    $items[$key]['img'] ='画像なし';
                 }
             }
             return view('comparisons.rakuten',  compact('items','userID','currentPage','totalPages','request','sort'));
